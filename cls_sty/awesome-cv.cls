@@ -46,6 +46,8 @@
 %-------------------------------------------------------------------------------
 %                3rd party packages
 %-------------------------------------------------------------------------------
+% Needed to parse the arguments in cvhonor
+\RequirePackage{xparse}
 % Needed to make fixed length table
 \RequirePackage{array}
 % Needed to handle list environment
@@ -74,7 +76,7 @@
 \RequirePackage{unicode-math}
 % Needed to use icons from font-awesome
 % (https://github.com/posquit0/latex-fontawesome)
-\RequirePackage{fontawesome}
+\RequirePackage{cls_sty/fontawesome}
 \RequirePackage[default,opentype]{sourcesanspro}
 % Needed for the photo ID
 \RequirePackage[skins]{tcolorbox}
@@ -82,11 +84,14 @@
 \RequirePackage{parskip}
 % Needed to deal hyperlink
 \RequirePackage[hidelinks,unicode]{hyperref}
+\definecolor{purpleish}{HTML}{8F498E}
 \hypersetup{%
   pdftitle={},
   pdfauthor={},
   pdfsubject={},
-  pdfkeywords={}
+  pdfkeywords={},
+  colorlinks = true,
+  urlcolor = purpleish
 }
 
 
@@ -152,8 +157,12 @@
 \setbool{acvSectionColorHighlight}{true}
 
 % Awesome section color
-\def\@sectioncolor#1#2#3{%
-  \ifbool{acvSectionColorHighlight}{{\color{awesome}#1#2#3}}{#1#2#3}%
+% \def\@sectioncolor#1#2#3{%
+%   \ifbool{acvSectionColorHighlight}{{\color{awesome}#1#2#3}}{#1#2#3}%
+% }
+
+\def\@sectioncolor#1{%
+  \ifbool{acvSectionColorHighlight}{{\color{awesome}#1}}{#1}%
 }
 
 
@@ -604,7 +613,7 @@
       {\entrypositionstyle{#1} & \entrydatestyle{#4} \\}
       {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
       \entrypositionstyle{#1} & \entrydatestyle{#4} \\}
-    \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}}
+    \multicolumn{2}{L{\textwidth - 4.5cm}}{\descriptionstyle{#5}}
   \end{tabular*}%
 }
 
@@ -639,16 +648,24 @@
   \begin{center}
     \setlength\tabcolsep{0pt}
     \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{1.5cm} L{\textwidth - 4.0cm} R{2.5cm}}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{1.5cm} L{\textwidth - 6.0cm} R{3.0cm}}
 }{%
     \end{tabular*}
   \end{center}
 }
 % Define a line of cv information(honor, award or something else)
 % Usage: \cvhonor{<position>}{<title>}{<location>}{<date>}
-\newcommand*{\cvhonor}[4]{%
-  \honordatestyle{#4} & \honorpositionstyle{#1}, \honortitlestyle{#2} & \honorlocationstyle{#3} \\
+% \newcommand*{\cvhonor}[4]{%
+%   \honordatestyle{#4} & \honorpositionstyle{#1}, \honortitlestyle{#2} & \honorlocationstyle{#3} \\
+% }
+
+\NewDocumentCommand{\cvhonor}{ m o m m }{%
+  \IfNoValueTF{#2}
+      {\honordatestyle{#4} & \honorpositionstyle{#1} & \honorlocationstyle{#3}}
+      {\honordatestyle{#4} & \honorpositionstyle{#1}, \honortitlestyle{#2} & \honorlocationstyle{#3}}
+  \\
 }
+
 
 % Define an environment for cvskill
 \newenvironment{cvskills}{%
