@@ -85,6 +85,7 @@
 % Needed to deal hyperlink
 \RequirePackage[hidelinks,unicode]{hyperref}
 \definecolor{purpleish}{HTML}{8F498E}
+\definecolor{purpleish1}{HTML}{9558B2}
 \hypersetup{%
   pdftitle={},
   pdfauthor={},
