@@ -86,13 +86,14 @@
 \RequirePackage[hidelinks,unicode]{hyperref}
 \definecolor{purpleish}{HTML}{8F498E}
 \definecolor{purpleish1}{HTML}{9558B2}
+\definecolor{rblue}{HTML}{1F65CC}
 \hypersetup{%
   pdftitle={},
   pdfauthor={},
   pdfsubject={},
   pdfkeywords={},
   colorlinks = true,
-  urlcolor = purpleish
+  urlcolor = rblue
 }
 
 
